@@ -1,9 +1,14 @@
 
+$w : 60%;
+
 $c-b : #637bd9;
+$c-brand : rgb(249, 28, 96);
 
 $c-l : rgb(76, 112, 220);
 $c-h : rgb(103, 166, 220);
 
+$c-valid : #3ec93b;;
+$c-invalid : #c92f2f;;
 
 /* Core
 -------------------------------------------------- */
@@ -19,7 +24,33 @@ a {
 	@extend .link;
 	}
 
+.button[disabled] {
+	opacity: .6;
+	pointer-events: none;
+	cursor: default;
+	}
+
 /* /Core */
+
+
+/* Angular-specific
+-------------------------------------------------- */
+
+textarea,
+select,
+input {
+	&.ng-dirty {
+		&.ng-valid-required {
+			border-color: $c-valid;
+			}
+
+		&.ng-invalid {
+			border-color: $c-invalid;
+			}
+		}
+	}
+
+/* /Angular-specific */
 
 
 /* Partials
@@ -88,7 +119,7 @@ menu {
 
 	padding: 10px;
 	background: #e4f1ff;
-	width: 60%;
+	width: $w;
 
 	menu {
 		font-size: 12px;
@@ -119,3 +150,70 @@ menu {
 	}
 
 /* /Product */
+
+
+/* Review
+-------------------------------------------------- */
+
+.form {
+
+	.validation {
+
+		$w-icon : 2em;
+
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 10px;
+
+		width: $w-icon;
+		height: $w-icon;
+		border-radius: $w-icon/2;
+		background: $c-invalid;
+
+		&.ok {
+			background: $c-valid;
+			}
+		}
+	}
+
+.stars-w {
+	font-size: 20px;
+	font-family: monospace;
+	overflow: hidden;
+
+	$w-star : 1.4ex;
+
+	@for $i from 1 through 5 {
+		&.stars-#{$i} {
+			width: $w-star*$i;
+			}
+		}
+
+	.stars {
+		color: $c-brand;
+		letter-spacing: .3ex;
+		}
+	}
+
+.review {
+	max-width: $w;
+	font-size: 12px;
+	padding-bottom: 15px;
+
+	p {
+		margin-bottom: 10px;
+		}
+
+	hr {
+		margin: 10px 0;
+		padding: 0;
+		}
+
+	cite {
+		font-weight: bold;
+		color: #999;
+		}
+
+	}
+
+/* /Review */
