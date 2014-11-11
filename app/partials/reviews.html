@@ -1,0 +1,36 @@
+<!-- reviews list -->
+<h3>Reviews</h3>
+<ul>
+    <li ng-repeat="review in reviewCtrl.reviews" class="review">
+        <article>
+            <div class="stars-w stars-{{review.stars}}">
+                <span class="stars">♥♥♥♥♥</span>
+            </div>
+            <p>{{review.body}}</p>
+            <hr/>
+            <cite class="author">{{review.author}}</cite>
+        </article>
+    </li>
+</ul>
+
+<!-- review form -->
+<h3>Add review</h3>
+<form class="form" name="reviewForm" ng-submit="reviewForm.$valid && reviewCtrl.addReview()" novalidate>
+    <label>Stars:</label>
+    <select ng-model="reviewCtrl.review.stars" name="reviewStars" id="reviewStars">
+        <option value="1">♥</option>
+        <option value="2">♥♥</option>
+        <option value="3">♥♥♥</option>
+        <option value="4">♥♥♥♥</option>
+        <option value="5" ng-selected="{{true}}">♥♥♥♥♥</option>
+    </select>
+    <label>Review:</label>
+    <textarea required ng-model="reviewCtrl.review.body" name="reviewBody" id="reviewBody" cols="30" rows="10"></textarea>
+    <label>
+        E-mail:
+        <input required ng-model="reviewCtrl.review.author" type="email" placeholder="starHolder@comet.com"/>
+    </label>
+
+    <span ng-class="{validation : true, ok : reviewForm.$valid == true}"></span>
+    <input ng-disabled="!reviewForm.$valid" type="submit" class="button" value="Submit"/>
+</form>

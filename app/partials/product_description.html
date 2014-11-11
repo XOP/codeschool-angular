@@ -1,0 +1,16 @@
+<div class="descr">
+    <menu>
+        <li><span ng-class="{pseudo:true, active : descr.current === 0}" ng-click="descr.setTab(0)">description</span></li>
+        <li><span ng-class="{pseudo:true, active : descr.current === 1}" ng-click="descr.setTab(1)">characteristics</span></li>
+    </menu>
+    <div class="row tab" ng-show="descr.isActive(0)">
+        {{product.descr | limitTo:140}}
+    </div>
+    <div class="row tab" ng-show="descr.isActive(1)">
+        <ul class="circle">
+            <li ng-repeat="char in product.chars | limitTo : 3">
+                {{char}}
+            </li>
+        </ul>
+    </div>
+</div>

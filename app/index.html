@@ -30,85 +30,35 @@
             </div>
         </header>
 
-        <div ng-view="">
+        <div class="products">
 
             <div class="row prices" ng-controller="StoreController as store">
-              <ul>
-                  <li class="product" ng-repeat="product in store.products" ng-hide="product.isHidden">
-                      <p class="lead">
-                          {{product.name}} - {{product.price | currency}}
-                      </p>
+                <ul>
+                    <li class="product" ng-repeat="product in store.products" ng-hide="product.isHidden">
 
-                      <div class="descr" ng-controller="DescrController as descr">
-                          <menu>
-                              <li><span ng-class="{pseudo:true, active : descr.current === 0}" ng-click="descr.setTab(0)">description</span></li>
-                              <li><span ng-class="{pseudo:true, active : descr.current === 1}" ng-click="descr.setTab(1)">characteristics</span></li>
-                          </menu>
-                          <div class="row tab" ng-show="descr.isActive(0)">
-                              {{product.descr | limitTo:140}}
-                          </div>
-                          <div class="row tab" ng-show="descr.isActive(1)">
-                              <ul class="circle">
-                                  <li ng-repeat="char in product.chars | limitTo : 3 | randomize : chars">
-                                      {{char}}
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
+                        <!-- Name : attribute directive -->
+                        <p class="lead" product-name></p>
 
-                      <div class="row gallery" ng-show="product.images.length">
-                          <div class="item">
-                              <img ng-src="{{product.images[0].thumb}}" alt=""/>
-                          </div>
-                      </div>
-                      <a class="button" ng-show="product.isAvailable" href="#buy">I want this!</a>
-                  </li>
-              </ul>
+                        <!-- Description -->
+                        <product-description></product-description>
+
+                        <!-- Gallery -->
+                        <div class="row gallery" ng-show="product.images.length">
+                            <div class="item">
+                                <img ng-src="{{product.images[0].thumb}}" alt=""/>
+                            </div>
+                        </div>
+                        <a class="button" ng-show="product.isAvailable" href="#buy">I want this!</a>
+                    </li>
+                </ul>
             </div>
 
         </div>
 
-        <div class="reviews" ng-controller="ReviewController as reviewCtrl">
-
-            <h3>Reviews</h3>
-
-            <ul>
-                <li ng-repeat="review in reviewCtrl.reviews" class="review">
-                    <article>
-                        <div class="stars-w stars-{{review.stars}}">
-                            <span class="stars">♥♥♥♥♥</span>
-                        </div>
-                        <p>{{review.body}}</p>
-                        <hr/>
-                        <cite class="author">{{review.author}}</cite>
-                    </article>
-                </li>
-            </ul>
-
-            <h3>Add review</h3>
-
-            <form class="form" name="reviewForm" ng-submit="reviewForm.$valid && reviewCtrl.addReview()" novalidate>
-                <label>Stars:</label>
-                <select ng-model="reviewCtrl.review.stars" name="reviewStars" id="reviewStars">
-                    <option value="1">♥</option>
-                    <option value="2">♥♥</option>
-                    <option value="3">♥♥♥</option>
-                    <option value="4">♥♥♥♥</option>
-                    <option value="5" ng-selected="{{true}}">♥♥♥♥♥</option>
-                </select>
-                <label>Review:</label>
-                <textarea required ng-model="reviewCtrl.review.body" name="reviewBody" id="reviewBody" cols="30" rows="10"></textarea>
-                <label>
-                    E-mail:
-                    <input required ng-model="reviewCtrl.review.author" type="email" placeholder="starHolder@comet.com"/>
-                </label>
-
-                <span ng-class="{validation : true, ok : reviewForm.$valid == true}"></span>
-                <input ng-disabled="!reviewForm.$valid" type="submit" class="button" value="Submit"/>
-            </form>
-
-
+        <div class="reviews">
+            <reviews></reviews>
         </div>
+
 
         <footer>
             <div class="row">
@@ -123,12 +73,13 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <!-- endbower -->
+    <!--endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->

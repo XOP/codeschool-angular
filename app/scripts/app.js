@@ -66,34 +66,70 @@
 
     //
     // StoreController
-    app.controller('StoreController', function(){
+    app.controller('StoreController', function($scope, $filter){
         this.products = gems;
+
+        // randomizing chars
+        var c = this.products.length;
+        while(c--){
+            for (var key in this.products[c]) {
+                if(key === 'chars'){
+                    this.products[c].chars = $filter('randomize')(this.products[c].chars);
+                }
+            }
+        }
+
+    });
+
+
+    //
+    // Name directive
+    app.directive('productName', function(){
+        return {
+            restrict : 'A',
+            templateUrl : 'partials/product_name.html'
+        };
     });
 
     //
-    // DescrController
-    app.controller('DescrController', function(){
-        this.current = 0;
-        this.setTab = function(val){
-            this.current = val;
-        };
-        this.isActive = function(val){
-            return val === this.current;
+    // Description directive
+    app.directive('productDescription', function(){
+        return {
+            restrict : 'E',
+            templateUrl : 'partials/product_description.html',
+
+            controller : function(){
+                this.current = 0;
+                this.setTab = function(val){
+                    this.current = val;
+                };
+                this.isActive = function(val){
+                    return val === this.current;
+                };
+            },
+            controllerAs : 'descr'
         };
     });
 
     //
-    // ReviewController
-    app.controller('ReviewController', function(){
-        this.reviews = reviews;
+    // Form directive
+    app.directive('reviews', function(){
+        return {
+            restrict : 'E',
+            templateUrl : 'partials/reviews.html',
 
-        this.review = {};
+            controller : function(){
+                this.reviews = reviews;
 
-        this.addReview = function(){
-            this.reviews.push(this.review);
-            this.review = {};
+                this.review = {};
+
+                this.addReview = function(){
+                    this.reviews.push(this.review);
+                    this.review = {};
+                };
+            },
+            controllerAs : 'reviewCtrl'
         };
-
     });
 
 })();
